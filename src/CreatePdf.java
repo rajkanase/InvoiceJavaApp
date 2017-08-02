@@ -11,6 +11,10 @@ import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class CreatePdf implements ActionListener{
 
@@ -123,6 +127,7 @@ public class CreatePdf implements ActionListener{
         amt_convert=Integer.toString(amount);
 
         //total amount with GST
+
         float gst=(amount*9)/100;
         gst_convert=Float.toString(gst);
 
@@ -134,6 +139,19 @@ public class CreatePdf implements ActionListener{
         total_convert=Float.toString(total);
 
     }
+
+   void getConnection() throws ClassNotFoundException, SQLException {
+       Class.forName("com.mysql.jdbc.Driver");
+        Connection con1 = DriverManager.getConnection("jdbc:mysql://localhost:3306/JDBCToday","root","raj");
+        Statement st1 = con1.createStatement();
+        boolean z=st1.execute("INSERT INTO invoicepdf (user_name,user_cmpny,user_add,user_town,user_mob,qty,product_name,product_price) VALUES('"+name+"','"+company+"','"+address+"','"+town+"','"+phone+"','"+qty+"','"+product+"','"+price+"')");
+        if(z==true){
+            System.out.println("Inserted");
+        }
+        st1.close();
+        con1.close();
+        JOptionPane.showMessageDialog(null,"Data are Registered Successfully");
+   }
 
     boolean validateForm(){
         if (tf_name.getText().isEmpty() || tf_company.getText().isEmpty() || tf_address.getText().isEmpty() || tf_town.getText().isEmpty() || tf_phone.getText().isEmpty())
@@ -288,12 +306,23 @@ public class CreatePdf implements ActionListener{
 //       if(validateForm()){
 //
 //       }
+
+
+
         getUserData();
         try {
             gereratePdf();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (DocumentException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            getConnection();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
