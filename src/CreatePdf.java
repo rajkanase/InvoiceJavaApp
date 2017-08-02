@@ -150,7 +150,7 @@ public class CreatePdf implements ActionListener{
         }
         st1.close();
         con1.close();
-        JOptionPane.showMessageDialog(null,"Data are Registered Successfully");
+        //JOptionPane.showMessageDialog(null,"Data are Registered Successfully");
    }
 
     boolean validateForm(){
@@ -308,7 +308,7 @@ public class CreatePdf implements ActionListener{
 //       }
 
 
-
+        if (validateForm()){
         getUserData();
         try {
             gereratePdf();
@@ -325,6 +325,8 @@ public class CreatePdf implements ActionListener{
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        }else{JOptionPane.showMessageDialog(null,"Please Complete the form..!");}
 
     }
 
