@@ -129,7 +129,7 @@ public class CreatePdf implements ActionListener{
         gst_convert=Float.toString(gst);
 
 
-        //total amount with CST
+        //total amount with CST//
         float cst=(amount*9)/100;
         cst_convert=Float.toString(cst);
         float total=amount+gst+cst;
@@ -137,7 +137,7 @@ public class CreatePdf implements ActionListener{
 
     }
 
-   void getConnection() throws ClassNotFoundException, SQLException {
+    void getConnection() throws ClassNotFoundException, SQLException {
        Class.forName("com.mysql.jdbc.Driver");
         Connection con1 = DriverManager.getConnection("jdbc:mysql://localhost:3306/JDBCToday","root","raj");
         Statement st1 = con1.createStatement();
