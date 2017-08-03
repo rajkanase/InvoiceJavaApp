@@ -1,8 +1,5 @@
 import com.itextpdf.text.*;
-import com.itextpdf.text.pdf.CMYKColor;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.*;
 import com.itextpdf.text.pdf.draw.VerticalPositionMark;
 
 import javax.swing.*;
@@ -273,6 +270,14 @@ public class CreatePdf implements ActionListener{
             Paragraph para6 =new Paragraph("Stamp/Signature:");
             document.add(para6);
 
+            PdfContentByte canvas = writer.getDirectContent();
+            CMYKColor magentaColor = new CMYKColor(0.f, 0.f, 0.f, 1.f);
+            canvas.setColorStroke(magentaColor);
+            canvas.moveTo(450, 295);
+//            canvas.lineTo(36, 806);
+            canvas.lineTo(560, 295);
+//            canvas.lineTo(559, 806);
+            canvas.closePathStroke();
 
 
             document.add(new Phrase("\n"));
